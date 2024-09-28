@@ -1,0 +1,27 @@
+{
+	"apiVersion": 2,
+	"name": "blockdev/firstblock",
+	"version": "0.1.0",
+	"title": "First Block",
+	"category": "common",
+	"icon": "smiley",
+	"description": "Example block written with ESNext standard and JSX support build step required.",
+	"supports": {
+		"html": false,
+		"anchor": true
+	},
+	"attributes": {
+		"text": {
+			"type": "string",
+			"default": "Hello World"
+		},
+		"tags": {
+			"type": "string",
+			"default": "h2"
+		}
+	},
+	"textdomain": "boilerplate",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css"
+}
