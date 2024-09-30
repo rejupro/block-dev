@@ -46,13 +46,16 @@ const {
 
 function Edit({
   attributes,
-  setAttributes,
-  clientId
+  setAttributes
 }) {
   const {
     text,
-    tags
+    tags,
+    textcolor,
+    backgroundcolor,
+    divPaddings
   } = attributes;
+  console.log(divPaddings);
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.InspectorControls, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, {
     title: ('Post Title', 'blockdev'),
     initialOpen: true
@@ -63,6 +66,12 @@ function Edit({
     value: text,
     onChange: value => setAttributes({
       text: value
+    })
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.BoxControl, {
+    values: divPaddings,
+    label: "Padding Settings",
+    onChange: newPadding => setAttributes({
+      divPaddings: newPadding
     })
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.SelectControl, {
     label: "Size",
@@ -92,17 +101,41 @@ function Edit({
     onChange: value => setAttributes({
       tags: value
     })
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, {
+    title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Color Settings', 'blockdev') // Title for the panel
+    ,
+    initialOpen: false // Control whether the panel is open by default
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.PanelColorSettings, {
+    title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Text Color Settings', 'blockdev'),
+    colorSettings: [{
+      value: textcolor,
+      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Text Color', 'blockdev'),
+      onChange: value => setAttributes({
+        textcolor: value
+      })
+    }]
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, "Background Color"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.GradientPicker, {
+    value: backgroundcolor,
+    onChange: value => setAttributes({
+      backgroundcolor: value
+    })
   }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.useBlockProps)({
       className: 'rejutestinghere'
-    })
+    }),
+    style: {
+      background: backgroundcolor
+    }
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.RichText, {
     tagName: tags,
     value: text,
     onChange: value => setAttributes({
       text: value
     }),
-    placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Heading…')
+    placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Heading…'),
+    style: {
+      color: textcolor
+    }
   })));
 }
 
@@ -170,15 +203,23 @@ function save({
 }) {
   const {
     text,
-    tags
+    tags,
+    textcolor,
+    backgroundcolor
   } = attributes;
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     ..._wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.useBlockProps.save({
       className: 'rejutestinghere'
-    })
+    }),
+    style: {
+      background: backgroundcolor
+    }
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.RichText.Content, {
     tagName: tags,
-    value: text
+    value: text,
+    style: {
+      color: textcolor
+    }
   })));
 }
 
@@ -264,7 +305,7 @@ module.exports = window["wp"]["i18n"];
   \******************************************/
 /***/ ((module) => {
 
-module.exports = /*#__PURE__*/JSON.parse('{"apiVersion":2,"name":"blockdev/firstblock","version":"0.1.0","title":"First Block","category":"common","icon":"smiley","description":"Example block written with ESNext standard and JSX support build step required.","supports":{"html":false,"anchor":true},"attributes":{"text":{"type":"string","default":"Hello World"},"tags":{"type":"string","default":"h2"}},"textdomain":"boilerplate","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css"}');
+module.exports = /*#__PURE__*/JSON.parse('{"apiVersion":2,"name":"blockdev/firstblock","version":"0.1.0","title":"First Block","category":"common","icon":"smiley","description":"Example block written with ESNext standard and JSX support build step required.","supports":{"html":false,"anchor":true,"align":true},"attributes":{"text":{"type":"string","default":"Hello World"},"tags":{"type":"string","default":"h2"},"textcolor":{"type":"string","default":"#000000"},"backgroundcolor":{"type":"string","default":"#ffffff"},"divPaddings":{"type":"object","default":{"top":"10px","bottom":"10px","left":"10px","right":"10px"}}},"textdomain":"boilerplate","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css"}');
 
 /***/ })
 

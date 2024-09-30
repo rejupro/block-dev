@@ -4,10 +4,17 @@
 const { Fragment, useEffect } = wp.element;
 import {
 	InspectorControls,
+	PanelColorSettings,
 	RichText,
 	useBlockProps,
 } from '@wordpress/block-editor';
-import { PanelBody, SelectControl, TextControl } from '@wordpress/components';
+import {
+	BoxControl,
+	GradientPicker,
+	PanelBody,
+	SelectControl,
+	TextControl,
+} from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 
 // editor style
@@ -21,8 +28,10 @@ import './editor.scss';
  * Edit function
  */
 
-export default function Edit({ attributes, setAttributes, clientId }) {
-	const { text, tags } = attributes;
+export default function Edit({ attributes, setAttributes }) {
+	const { text, tags, textcolor, backgroundcolor, divPaddings } = attributes;
+
+	console.log(divPaddings);
 	return (
 		<Fragment>
 			{/* Inspector Controls in the sidebar */}
@@ -40,6 +49,13 @@ export default function Edit({ attributes, setAttributes, clientId }) {
 							setAttributes({
 								text: value,
 							})
+						}
+					/>
+					<BoxControl
+						values={divPaddings}
+						label="Padding Settings"
+						onChange={(newPadding) =>
+							setAttributes({ divPaddings: newPadding })
 						}
 					/>
 					<SelectControl
@@ -61,11 +77,38 @@ export default function Edit({ attributes, setAttributes, clientId }) {
 						}
 					/>
 				</PanelBody>
+				<PanelBody
+					title={__('Color Settings', 'blockdev')} // Title for the panel
+					initialOpen={false} // Control whether the panel is open by default
+				>
+					<PanelColorSettings
+						title={__('Text Color Settings', 'blockdev')}
+						colorSettings={[
+							{
+								value: textcolor,
+								label: __('Text Color', 'blockdev'),
+								onChange: (value) =>
+									setAttributes({ textcolor: value }),
+							},
+						]}
+					/>
+
+					<p>Background Color</p>
+					<GradientPicker
+						value={backgroundcolor}
+						onChange={(value) =>
+							setAttributes({ backgroundcolor: value })
+						}
+					/>
+				</PanelBody>
 			</InspectorControls>
 			<div
 				{...useBlockProps({
 					className: 'rejutestinghere',
 				})}
+				style={{
+					background: backgroundcolor,
+				}}
 			>
 				<RichText
 					tagName={tags}
@@ -76,6 +119,9 @@ export default function Edit({ attributes, setAttributes, clientId }) {
 						})
 					}
 					placeholder={__('Heading…')}
+					style={{
+						color: textcolor,
+					}}
 				/>
 			</div>
 		</Fragment>

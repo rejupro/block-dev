@@ -8,7 +8,7 @@ import { RichText, useBlockProps } from '@wordpress/block-editor';
  */
 
 export default function save({ attributes }) {
-	const { text, tags } = attributes;
+	const { text, tags, textcolor, backgroundcolor } = attributes;
 
 	return (
 		<>
@@ -16,8 +16,17 @@ export default function save({ attributes }) {
 				{...useBlockProps.save({
 					className: 'rejutestinghere',
 				})}
+				style={{
+					background: backgroundcolor,
+				}}
 			>
-				<RichText.Content tagName={tags} value={text} />
+				<RichText.Content
+					tagName={tags}
+					value={text}
+					style={{
+						color: textcolor,
+					}}
+				/>
 			</div>
 		</>
 	);
